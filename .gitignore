@@ -1,0 +1,9 @@
+node_modules/
+coverage/
+docs/
+
+yarn-error.log
+.DS_Store
+.cache
+.idea
+.env
