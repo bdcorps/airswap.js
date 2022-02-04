@@ -34,7 +34,7 @@ const GOERLI_ID = 5
 
 const NETWORK_MAPPING = {
   [MAIN_ID]: 'Mainnet',
-  [POLYGON_MAIN_ID]: 'Rinkeby',
+  [POLYGON_MAIN_ID]: 'Polygon',
   [KOVAN_ID]: 'Kovan',
   [GOERLI_ID]: 'Goerli',
 }
