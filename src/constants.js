@@ -28,35 +28,35 @@ const ENV =
   'production'
 
 const MAIN_ID = 1
-const RINKEBY_ID = 4
+const POLYGON_MAIN_ID = 137
 const KOVAN_ID = 42
 const GOERLI_ID = 5
 
 const NETWORK_MAPPING = {
   [MAIN_ID]: 'Mainnet',
-  [RINKEBY_ID]: 'Rinkeby',
+  [POLYGON_MAIN_ID]: 'Rinkeby',
   [KOVAN_ID]: 'Kovan',
   [GOERLI_ID]: 'Goerli',
 }
 
 const NAME_MAPPING = {
   [MAIN_ID]: 'mainnet',
-  [RINKEBY_ID]: 'rinkeby',
+  [POLYGON_MAIN_ID]: 'rinkeby',
   [KOVAN_ID]: 'kovan',
   [GOERLI_ID]: 'goerli',
 }
 
 const SWAP_LEGACY_CONTRACT_MAPPING = {
   [MAIN_ID]: '0x8fd3121013a07c57f0d69646e86e7a4880b467b7',
-  [RINKEBY_ID]: '0x07fc7c43d8168a2730344e5cf958aaecc3b42b41',
+  [POLYGON_MAIN_ID]: '0x07fc7c43d8168a2730344e5cf958aaecc3b42b41',
 }
 
 let NETWORK = (N => {
   switch (N) {
     case 'development':
-      return RINKEBY_ID
+      return POLYGON_MAIN_ID
     case 'sandbox':
-      return RINKEBY_ID
+      return POLYGON_MAIN_ID
     case 'staging':
       return MAIN_ID
     case 'production':
@@ -143,7 +143,7 @@ const SWAP_CONTRACT_ADDRESS = contractConstants.swap[String(NETWORK)]
 
 const SWAP_CONTRACT_DEPLOY_BLOCK = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 5359808
     case MAIN_ID:
       return 8574958
@@ -161,7 +161,7 @@ const TRADER_AFFILIATE_ADDRESS = '0xff98f0052bda391f8fad266685609ffb192bef25'
 
 const AST_CONTRACT_ADDRESS = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return '0xcc1cbd4f67cceb7c001bd4adf98451237a193ff8'
     case MAIN_ID:
       return '0x27054b13b1b798b345b591a4d22e6562d47ea75a'
@@ -175,7 +175,7 @@ const AST_CONTRACT_ADDRESS = (N => {
 
 const PGP_CONTRACT_ADDRESS = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return '0x9d7efd45e45c575cafb25d49d43556f43ebe3456'
     case MAIN_ID:
       return '0xa6a52efd0e0387756bc0ef10a34dd723ac408a30'
@@ -189,7 +189,7 @@ const INDEXER_CONTRACT_ADDRESS = contractConstants.indexer[String(NETWORK)]
 
 const INDEXER_CONTRACT_DEPLOY_BLOCK = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 5626023
     case MAIN_ID:
       return 9005083
@@ -207,7 +207,7 @@ const SWAP_LIGHT_CONTRACT_ADDRESS = contractConstants.swapLight[String(NETWORK)]
 
 const SWAP_LIGHT_CONTRACT_DEPLOY_BLOCK = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 7854047
     case MAIN_ID:
       return 11646873
@@ -221,7 +221,7 @@ const SWAP_LIGHT_CONTRACT_DEPLOY_BLOCK = (N => {
 
 const DELEGATE_FACTORY_CONTRACT_DEPLOY_BLOCK = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 5626024
     case MAIN_ID:
       return 9006065
@@ -238,7 +238,7 @@ const ETH_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 const WETH_CONTRACT_ADDRESS = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return '0xc778417e063141139fce010982780140aa0cd5ab'
     case MAIN_ID:
       return '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
@@ -254,7 +254,7 @@ const ETH_BASE_ADDRESSES = [ETH_ADDRESS, WETH_CONTRACT_ADDRESS]
 
 const DAI_CONTRACT_ADDRESS = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea'
     case MAIN_ID:
       return '0x6b175474e89094c44da98b954eedeac495271d0f'
@@ -268,7 +268,7 @@ const DAI_CONTRACT_ADDRESS = (N => {
 
 const USDC_CONTRACT_ADDRESS = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return '0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b'
     case MAIN_ID:
       return '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'
@@ -282,7 +282,7 @@ const USDC_CONTRACT_ADDRESS = (N => {
 
 const DEXINDEX_URL = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 'https://ethereum-dex-prices-service.development.airswap.io'
     case MAIN_ID:
       return 'https://ethereum-dex-prices-service.production.airswap.io'
@@ -293,7 +293,7 @@ const DEXINDEX_URL = (N => {
 
 const DELTA_BALANCES_CONTRACT_ADDRESS = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return '0xa1e2c4132cbd33c3876e1254143a850466c97e32'
     case MAIN_ID:
       return '0x5dfe850d4b029c25c7ef9531ec9986c97d90300f'
@@ -341,7 +341,7 @@ const MAKER_STATS_URL = `https://maker-stats${ENV_URL_SNIPPET}.airswap.io/`
 
 const STABLECOIN_TOKEN_ADDRESSES = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return [
         DAI_CONTRACT_ADDRESS,
         '0x4dbcdf9b62e891a7cec5a2568c3f4faf9e8abe2b', // USDC
@@ -368,7 +368,7 @@ const STABLECOIN_TOKEN_ADDRESSES = (N => {
 
 const TRUSTED_PROJECT_TOKEN_ADDRESSES = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return []
     case MAIN_ID:
       return [
@@ -389,7 +389,7 @@ const TRUSTED_PROJECT_TOKEN_ADDRESSES = (N => {
 
 const BASE_ASSET_TOKEN_ADDRESSES = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return [ETH_ADDRESS, WETH_CONTRACT_ADDRESS].concat(STABLECOIN_TOKEN_ADDRESSES)
     case MAIN_ID:
       return [
@@ -464,7 +464,7 @@ const PORTIS_ID = '691c65e3-ef26-4e6a-9a91-cdc772ed2298'
 
 const FORTMATIC_ID = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 'pk_test_8514D52FEE94B0E1'
     case MAIN_ID:
       return 'pk_live_C61C451FE2415771'
@@ -488,7 +488,7 @@ module.exports = {
   ETH_NODE_WEBSOCKET,
   ENV,
   MAIN_ID,
-  RINKEBY_ID,
+  POLYGON_MAIN_ID,
   KOVAN_ID,
   GOERLI_ID,
   NETWORK_MAPPING,

@@ -9,7 +9,7 @@ const {
   ethersProvider,
   ETH_NODE_HTTP,
   NETWORK,
-  RINKEBY_ID,
+  POLYGON_MAIN_ID,
   MAIN_ID,
   GOERLI_ID,
   KOVAN_ID,
@@ -19,7 +19,7 @@ const { flatten } = require('../swap/utils')
 
 const OPENSEA_API_URL = (N => {
   switch (N) {
-    case RINKEBY_ID:
+    case POLYGON_MAIN_ID:
       return 'https://rinkeby-api.opensea.io/api/v1'
     case MAIN_ID:
       return 'https://api.opensea.io/api/v1'
