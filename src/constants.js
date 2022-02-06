@@ -93,7 +93,7 @@ export const matic = {
 
 console.log('switching to always matic')
 
-let ethersProvider = ethers.getDefaultProvider(matic)
+let ethersProvider = ethers.getDefaultProvider(NETWORK)
 
 // If set, expects a URL e.g. "https://{NETWORK}.infura.io/v3/..."
 if (process.env.ETH_NODE_HTTP || process.env.REACT_APP_ETH_NODE_HTTP) {
