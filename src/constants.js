@@ -84,7 +84,16 @@ if (typeof window !== 'undefined') {
 const NETWORK_NAME = NAME_MAPPING[NETWORK]
 
 let ETH_NODE_HTTP
-let ethersProvider = ethers.getDefaultProvider(NETWORK)
+
+export const matic = {
+  name: 'matic',
+  chainId: 137,
+  _defaultProvider: providers => new providers.JsonRpcProvider('https://polygon-rpc.com/'),
+}
+
+console.log('switching to always matic')
+
+let ethersProvider = ethers.getDefaultProvider(matic)
 
 // If set, expects a URL e.g. "https://{NETWORK}.infura.io/v3/..."
 if (process.env.ETH_NODE_HTTP || process.env.REACT_APP_ETH_NODE_HTTP) {
