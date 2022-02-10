@@ -12,7 +12,6 @@ const swap = require('./abis/swap.json')
 const swapLegacy = require('./abis/SwapLegacy.json')
 const delegateFactoryABI = require('./abis/delegateFactory.json')
 const wrapperABI = require('./abis/wrapper.json')
-const RetryProvider = require('./utils/retryProvider')
 const contractConstants = require('./contractConstants.json')
 
 const JEST_IS_TESTING = process.env.JEST_WORKER_ID !== undefined
@@ -87,65 +86,71 @@ let ETH_NODE_HTTP
 const matic = {
   name: 'matic',
   chainId: 137,
-  _defaultProvider: providers => new providers.JsonRpcProvider('https://polygon-rpc.com/'),
+  _defaultProvider: providers =>
+    new providers.JsonRpcProvider('https://polygon-mainnet.infura.io/v3/18b9894f7d8b4e2cae52adfff9d2cacd'),
 }
 
-console.log('switching to always matic')
+// let ethersProvider = ethers.getDefaultProvider(matic)
+const ethersProvider = new ethers.providers.JsonRpcProvider(matic)
 
-let ethersProvider = ethers.getDefaultProvider(matic)
+ethersProvider.getBalance('0xE2a6C9dAAFD438A04550E29087Bd839292ff82E5').then(e => {
+  console.log('balance is', ethers.utils.formatEther(e))
+})
+
+console.log('switching to always matic', ethersProvider.chainId)
 
 // If set, expects a URL e.g. "https://{NETWORK}.infura.io/v3/..."
-if (process.env.ETH_NODE_HTTP || process.env.REACT_APP_ETH_NODE_HTTP) {
-  let node_url = process.env.ETH_NODE_HTTP
-  if (process.env.REACT_APP_ETH_NODE_HTTP) {
-    node_url = process.env.REACT_APP_ETH_NODE_HTTP
-  }
-  node_url = node_url.replace(/{NETWORK}/g, NETWORK_NAME)
+// if (process.env.ETH_NODE_HTTP || process.env.REACT_APP_ETH_NODE_HTTP) {
+//   let node_url = process.env.ETH_NODE_HTTP
+//   if (process.env.REACT_APP_ETH_NODE_HTTP) {
+//     node_url = process.env.REACT_APP_ETH_NODE_HTTP
+//   }
+//   node_url = node_url.replace(/{NETWORK}/g, NETWORK_NAME)
 
-  try {
-    new URL(node_url)
-  } catch (e) {
-    throw new Error('Invalid HTTP URL for Ethereum node (ETH_NODE_HTTP)')
-  }
+//   try {
+//     new URL(node_url)
+//   } catch (e) {
+//     throw new Error('Invalid HTTP URL for Ethereum node (ETH_NODE_HTTP)')
+//   }
 
-  ETH_NODE_HTTP = node_url
-  ethersProvider = new RetryProvider(node_url, NETWORK)
-}
+//   ETH_NODE_HTTP = node_url
+//   ethersProvider = new RetryProvider(node_url, NETWORK)
+// }
 
 let ETH_NODE_WEBSOCKET
-let web3Provider = new Web3(Web3.givenProvider)
+const web3Provider = new Web3(Web3.givenProvider)
 
 // If set, expects a URL e.g. "wss://{NETWORK}.infura.io/ws/v3/..."
-if (process.env.ETH_NODE_WEBSOCKET || process.env.REACT_APP_ETH_NODE_WEBSOCKET) {
-  let node_url = process.env.ETH_NODE_WEBSOCKET
-  if (process.env.REACT_APP_ETH_NODE_WEBSOCKET) {
-    node_url = process.env.REACT_APP_ETH_NODE_WEBSOCKET
-  }
-  node_url = node_url.replace(/{NETWORK}/g, NETWORK_NAME)
+// if (process.env.ETH_NODE_WEBSOCKET || process.env.REACT_APP_ETH_NODE_WEBSOCKET) {
+//   let node_url = process.env.ETH_NODE_WEBSOCKET
+//   if (process.env.REACT_APP_ETH_NODE_WEBSOCKET) {
+//     node_url = process.env.REACT_APP_ETH_NODE_WEBSOCKET
+//   }
+//   node_url = node_url.replace(/{NETWORK}/g, NETWORK_NAME)
 
-  try {
-    new URL(node_url)
-  } catch (e) {
-    throw new Error('Invalid Websocket URL for Ethereum node (ETH_NODE_WEBSOCKET)')
-  }
+//   try {
+//     new URL(node_url)
+//   } catch (e) {
+//     throw new Error('Invalid Websocket URL for Ethereum node (ETH_NODE_WEBSOCKET)')
+//   }
 
-  ETH_NODE_WEBSOCKET = node_url
-  web3Provider = new Web3(
-    new Web3.providers.WebsocketProvider(node_url, {
-      reconnect: {
-        auto: true,
-        delay: 5000, // ms
-        maxAttempts: 100,
-        onTimeout: false,
-      },
-    }),
-  )
-}
+//   ETH_NODE_WEBSOCKET = node_url
+//   web3Provider = new Web3(
+//     new Web3.providers.WebsocketProvider(node_url, {
+//       reconnect: {
+//         auto: true,
+//         delay: 5000, // ms
+//         maxAttempts: 100,
+//         onTimeout: false,
+//       },
+//     }),
+//   )
+// }
 
-if (process.env.MOCHA_IS_TESTING || process.env.REACT_APP_TESTING) {
-  ethersProvider = new RetryProvider('http://localhost:8545', NETWORK)
-  web3Provider = new Web3('http://localhost:8545')
-}
+// if (process.env.MOCHA_IS_TESTING || process.env.REACT_APP_TESTING) {
+//   ethersProvider = new RetryProvider('http://localhost:8545', NETWORK)
+//   web3Provider = new Web3('http://localhost:8545')
+// }
 
 const SWAP_CONTRACT_ADDRESS = contractConstants.swap[String(NETWORK)]
 
@@ -421,7 +426,8 @@ const SLS_PGP_URL =
   process.env.REACT_APP_SLS_PGP_URL ||
   (_.includes(['development', 'sandbox'], ENV) ? `https://pgp.${ENV}.airswap.io` : 'https://pgp.airswap.io')
 
-const GAS_URL = 'https://ethgasstation.airswap.io/ethgasAPI.json'
+const GAS_URL = 'https://ethgasstation.info/api/ethgasAPI.json'
+// const GAS_URL = 'https://ethgasstation.info/api/ethgasAPI.json'
 
 const AIRSWAP_LOGO_URL = 'https://www.airswap.io/favicon.png'
 

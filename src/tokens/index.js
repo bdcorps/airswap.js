@@ -70,7 +70,7 @@ function mapToOldMetadataSchema(metadata) {
 
 class OldTokenMetadata {
   constructor() {
-    this.ready = fetchTokens(ethersProvider.network.chainId).then(result => {
+    this.ready = fetchTokens(ethersProvider.chainId).then(result => {
       this.setTokens([...result.tokens.map(mapToOldMetadataSchema)])
       return this.tokens
     })
